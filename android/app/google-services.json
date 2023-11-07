@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "595552764849",
+    "project_id": "saloon-2a65c",
+    "storage_bucket": "saloon-2a65c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:595552764849:android:cee0b60d854eb9a75a3390",
+        "android_client_info": {
+          "package_name": "com.example.bwi_assignment"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYRXpgpuh1EIBbI3ZsFqDV_QSwzGb3TB8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

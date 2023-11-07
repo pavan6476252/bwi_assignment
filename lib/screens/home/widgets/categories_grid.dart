@@ -1,5 +1,7 @@
 import 'package:bwi_assignment/models/category_model.dart';
+import 'package:bwi_assignment/providers/categories_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CategoriesGrid extends StatefulWidget {
   final VoidCallback? viewMore;
@@ -12,91 +14,105 @@ class CategoriesGrid extends StatefulWidget {
 
 class _CategoriesGridState extends State<CategoriesGrid> {
   @override
-  String img =
-      'https://cdn1.iconfinder.com/data/icons/amenities-solid-ii/48/_beauty-salon2-512.png';
-
   @override
   Widget build(BuildContext context) {
-    List<CategoryModel> data = [
-      CategoryModel(image: img, title: 'Hair cut'),
-      const CategoryModel(
-          image: 'https://i.imgur.com/makeup.jpg', title: 'Makeup'),
-      CategoryModel(image: img, title: 'Straightening'),
-      CategoryModel(image: img, title: 'Mani-Pedi'),
-      const CategoryModel(
-          image: 'https://i.imgur.com/spa.jpg', title: 'Spa/Message'),
-      CategoryModel(image: img, title: 'Beard Trimming'),
-      const CategoryModel(
-          image: 'https://i.imgur.com/spa.jpg', title: 'Hair Coloring'),
-      CategoryModel(image: img, title: 'Beard Trimming'),
-      const CategoryModel(
-          image: 'https://i.imgur.com/spa.jpg', title: 'Waxing'),
-      CategoryModel(image: img, title: 'Facial'),
-    ];
-    return Padding(
-      padding: const EdgeInsets.all(15.0),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text(
-              "Categories",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            GestureDetector(
-              onTap: () {
-                if (widget.viewMore != null) {
-                  widget.viewMore!();
-                }
-              },
-              child: const Text(
-                'View All',
-                style: TextStyle(
-                    decoration: TextDecoration.underline,
-                    fontWeight: FontWeight.w600,
-                    color: Color.fromARGB(255, 3, 83, 149)),
+    return Consumer<CategoryProvider>(builder: (context, ref, child) {
+      if (ref.getIsSuccess) {
+        Future.delayed(
+            Duration(seconds: 1),
+            () => {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text("Success"),
+                    backgroundColor: Colors.greenAccent,
+                  ))
+                });
+      }
+      if (ref.isError) {
+        Future.delayed(
+            Duration(seconds: 1),
+            () => {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(ref.getErrorMsg),
+                    backgroundColor: Colors.redAccent,
+                  ))
+                });
+      }
+      if (ref.isLoading) {
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      }
+      return Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                "Categories",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-            )
-          ],
-        ),
-        const SizedBox(height: 12),
-        GridView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: 6,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3, childAspectRatio: 2 / 3),
-          itemBuilder: (context, index) {
-            return Container(
-              margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
-              child: Column(
-                children: [
-                  Expanded(
-                      flex: 4,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.amber,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      )),
-                  Expanded(
-                      flex: 1,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text(
-                            data[index].title,
-                            style: const TextStyle(
-                                fontSize: 12, fontWeight: FontWeight.bold),
+              GestureDetector(
+                onTap: () {
+                  if (widget.viewMore != null) {
+                    widget.viewMore!();
+                  }
+                },
+                child: const Text(
+                  'View All',
+                  style: TextStyle(
+                      decoration: TextDecoration.underline,
+                      fontWeight: FontWeight.w600,
+                      color: Color.fromARGB(255, 3, 83, 149)),
+                ),
+              )
+            ],
+          ),
+          const SizedBox(height: 12),
+          GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: 6,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3, childAspectRatio: 2 / 3),
+            itemBuilder: (context, index) {
+              CategoryModel categoryModel = ref.getCategories[index];
+              return Container(
+                margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+                child: Column(
+                  children: [
+                    Expanded(
+                        flex: 4,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.amber,
+                            borderRadius: BorderRadius.circular(8),
+                            image: DecorationImage(
+                                image: NetworkImage(categoryModel.image),
+                                fit: BoxFit.cover),
                           ),
-                        ],
-                      ))
-                ],
-              ),
-            );
-          },
-        )
-      ]),
-    );
+                        )),
+                    Expanded(
+                        flex: 1,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              categoryModel.title.length > 10
+                                  ? "${categoryModel.title.substring(0, 14)}..."
+                                  : categoryModel.title,
+                              style: const TextStyle(
+                                  fontSize: 12, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ))
+                  ],
+                ),
+              );
+            },
+          )
+        ]),
+      );
+    });
   }
 }

@@ -16,17 +16,17 @@ class HomeTab extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             child: CustomSearchBar(),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             child: LatestOffersCarousel(),
           ),
-          FeaturedServicesList(),
+          const FeaturedServicesList(),
           CategoriesGrid(viewMore: switchToCategoriesTab),
-          MostPopularServices(),
+          const MostPopularServices(),
         ],
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:bwi_assignment/screens/forms/upload_form.dart';
 import 'package:bwi_assignment/screens/home/tabs/calendar_tab.dart';
 import 'package:bwi_assignment/screens/home/tabs/categories_tab.dart';
 import 'package:bwi_assignment/screens/home/tabs/home_tab.dart';
@@ -50,6 +51,19 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
+          floatingActionButton: _currentIndex == 4
+              ? FloatingActionButton(
+                  backgroundColor: AppColors.darkBlue,
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => UploadForm()));
+                  },
+                  child: Icon(
+                    Icons.upload,
+                    color: AppColors.lightGray,
+                  ),
+                )
+              : null,
           body: [
             HomeTab(
               switchToCategoriesTab: () {
@@ -60,7 +74,7 @@ class _HomePageState extends State<HomePage> {
             const CategoriesTab(),
             const CalendatTab(),
             const MessagingTab(),
-            const ProfileTab(),
+            ProfileTab(),
           ][_currentIndex]),
     );
   }
