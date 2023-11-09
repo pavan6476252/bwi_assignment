@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:bwi_assignment/providers/auth_provider.dart';
 import 'package:bwi_assignment/providers/categories_provider.dart';
 import 'package:bwi_assignment/screens/forms/category_form.dart';
 import 'package:bwi_assignment/screens/forms/offers_form.dart';
@@ -19,8 +20,13 @@ class _ProfileTabState extends State<ProfileTab> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-         
+          ElevatedButton(
+              onPressed: ()async {
+               await  context.read<AuthProvider>().logout(context);
+              },
+              child: const Text("logout"))
         ],
       ),
     );

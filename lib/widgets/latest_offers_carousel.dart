@@ -1,11 +1,11 @@
- 
 import 'dart:ui';
 
 import 'package:bwi_assignment/providers/offers_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
- 
+
 class LatestOffersCarousel extends StatefulWidget {
   const LatestOffersCarousel({super.key});
 
@@ -39,8 +39,18 @@ class _LatestOffersCarouselState extends State<LatestOffersCarousel> {
                 });
       }
       if (ref.isLoading) {
-        return const Center(
-          child: CircularProgressIndicator(),
+        return Shimmer.fromColors(
+          baseColor: Colors.white,
+          highlightColor: const Color.fromARGB(255, 235, 235, 235),
+          child: Container(
+            margin: const EdgeInsets.symmetric(vertical: 10),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
+            height: 200,
+            width: double.maxFinite,
+            child: const Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
         );
       }
 // return Text(ref.getOffers.length.toString());

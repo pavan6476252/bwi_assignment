@@ -1,6 +1,8 @@
 import 'package:bwi_assignment/models/SaloonModel.dart';
 import 'package:bwi_assignment/utils/colors.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 class MostPopularServices extends StatefulWidget {
   const MostPopularServices({super.key});
@@ -13,7 +15,7 @@ class _MostPopularServicesState extends State<MostPopularServices> {
   List<String> tabs = ["All", "Haircuts", "Make up", "Marcure", "Hair Die"];
   List<SaloonModel> services = [
     SaloonModel(
-      image: 'https://saloon1.com/image1.jpg',
+      image:  'https://images.pexels.com/photos/705255/pexels-photo-705255.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       title: 'Beauty Haven',
       address: '123 Main Street, Cityville',
       distance: '2.5 miles',
@@ -21,7 +23,7 @@ class _MostPopularServicesState extends State<MostPopularServices> {
       reviews: 120,
     ),
     SaloonModel(
-      image: 'https://saloon2.com/image2.jpg',
+      image: 'https://images.pexels.com/photos/3993449/pexels-photo-3993449.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1 ',
       title: 'Glamour Glow',
       address: '456 Oak Avenue, Townsville',
       distance: '1.2 miles',
@@ -29,7 +31,7 @@ class _MostPopularServicesState extends State<MostPopularServices> {
       reviews: 95,
     ),
     SaloonModel(
-      image: 'https://saloon3.com/image3.jpg',
+      image: 'https://images.pexels.com/photos/853427/pexels-photo-853427.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       title: 'Elegance Salon',
       address: '789 Elm Street, Villagetown',
       distance: '3.0 miles',
@@ -37,7 +39,7 @@ class _MostPopularServicesState extends State<MostPopularServices> {
       reviews: 150,
     ),
     SaloonModel(
-      image: 'https://saloon4.com/image4.jpg',
+      image: 'https://images.pexels.com/photos/1654834/pexels-photo-1654834.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       title: 'Chic Beauty Studio',
       address: '101 Pine Road, Suburbia',
       distance: '0.8 miles',
@@ -45,7 +47,7 @@ class _MostPopularServicesState extends State<MostPopularServices> {
       reviews: 110,
     ),
     SaloonModel(
-      image: 'https://saloon5.com/image5.jpg',
+      image: 'https://images.pexels.com/photos/7750115/pexels-photo-7750115.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       title: 'Pure Glam Salon',
       address: '222 Cedar Lane, Metroville',
       distance: '1.5 miles',
@@ -113,11 +115,19 @@ class _MostPopularServicesState extends State<MostPopularServices> {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(15),
-                      child: Image.network(
-                          color: Colors.redAccent,
-                          width: 130,
-                          fit: BoxFit.cover,
-                          'https://previews.123rf.com/images/redlinevector/redlinevector1710/redlinevector171000465/88339136-icon-of-beard-trim-grooming-mustache-facial-hair-hairdressing-salon-concept-can-be-used-for-topics.jpg'),
+                      child: CachedNetworkImage(
+                        width: 130,
+                        height: double.maxFinite,
+                        imageUrl:
+                           services[index].image,
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) => Shimmer.fromColors(
+                          baseColor: Colors.white,
+                          highlightColor:
+                              const Color.fromARGB(255, 235, 235, 235),
+                          child: Container(),
+                        ),
+                      ),
                     )
                     // info
                     ,

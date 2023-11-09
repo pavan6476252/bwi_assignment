@@ -15,7 +15,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
         child: ClipRRect(
             borderRadius: BorderRadius.circular(50),
             child: Image.network(
-              "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+              "https://i.pinimg.com/474x/2e/2f/ac/2e2fac9d4a392456e511345021592dd2.jpg",
               fit: BoxFit.cover,
             )),
       ),

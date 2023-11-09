@@ -1,10 +1,13 @@
 import 'package:bwi_assignment/firebase_options.dart';
+import 'package:bwi_assignment/providers/auth_provider.dart';
 import 'package:bwi_assignment/providers/categories_provider.dart';
 import 'package:bwi_assignment/providers/offers_provider.dart';
 import 'package:bwi_assignment/screens/auth/login_page.dart';
 import 'package:bwi_assignment/screens/auth/otp_screen.dart';
 import 'package:bwi_assignment/screens/home/home_page.dart';
+import 'package:bwi_assignment/screens/splash.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -34,16 +37,36 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-  create: (context) => CategoryProvider(),
-)
-     ,   ChangeNotifierProvider(
-  create: (context) => OffersProvider(),
-)
+          create: (context) => CategoryProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => OffersProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => AuthProvider(),
+        ),
       ],
-      child: MaterialApp(
+  child: MaterialApp(
         theme: ThemeData(
-            useMaterial3: true, fontFamily: GoogleFonts.poppins().fontFamily),
-        home: HomePage(),
+          useMaterial3: true,
+          fontFamily: GoogleFonts.poppins().fontFamily,
+        ),
+        home: Builder(
+          builder: (context) {
+            return StreamBuilder<User?>(
+              stream: context.read<AuthProvider>().auth.userChanges(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return SplashPage();
+                } else if (snapshot.hasData && snapshot.data != null) {
+                  return const HomePage();
+                } else {
+                  return const LoginScreen();
+                }
+              },
+            );
+          },
+        ),
       ),
     );
   }

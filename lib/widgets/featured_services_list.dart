@@ -14,19 +14,19 @@ class _FeaturedServicesListState extends State<FeaturedServicesList> {
       const ServiceModel(
           title: "Beard trimming",
           image:
-              "https://img.freepik.com/free-vector/special-offer-creative-sale-banner-design_1017-14284.jpg?1",
+              "https://www.thetrendspotter.net/wp-content/uploads/2016/07/How-to-Trim-a-Beard-The-Right-Way-e1467620282973.jpg",
           offerPrice: 200,
           price: 300),
       const ServiceModel(
           title: "Hair Strightener",
           image:
-              "https://img.freepik.com/free-vector/special-offer-modern-sale-banner-template_1017-20667.jpg",
+              "https://techsquadteam.com/assets/profile/blogimages/9e0817d28da5bb896d7c5f8c898b8094.jpg",
           offerPrice: 1000,
           price: 2100),
       const ServiceModel(
-          title: "Splendier",
+          title: "Splendor",
           image:
-              "https://img.freepik.com/free-vector/special-offer-modern-sale-banner-template_1017-20667.jpg",
+              "https://i.pinimg.com/736x/b8/71/ac/b871ac01eee4301e65d09295107dd9c3.jpg",
           offerPrice: 1000,
           price: 1500),
     ];

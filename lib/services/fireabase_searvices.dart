@@ -8,6 +8,8 @@ class FirebaseServices {
   FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
 
+
+
   Future<QuerySnapshot<Map<String, dynamic>>> getAllFirestoreData(
       String collectionName) async {
     CollectionReference<Map<String, dynamic>> collectionReference =
